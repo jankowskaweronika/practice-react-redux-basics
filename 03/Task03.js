@@ -1,20 +1,27 @@
-import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import Task04 from './../../04/Task04';
+import Task05 from './../../05/Task05';
 
-const Task03 = () => {
-    const time = useSelector(({time = null}) => time);
-    const dispatch = useDispatch();
 
+const initialState = { message: 'Działa!', time: new Date() };
+const reducer = (state = initialState, action) => {
+    switch (action.type) {
+        case 'getCurrentTime':
+            return { ...state, time: new Date() };
+    }
+    return state;
+};
+const store = createStore(
+    reducer,
+    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+);
+export const App = () => {
     return (
-        <section>
-            <h1>Task 3</h1>
-            <div>
-                <time>{ time ? time.toLocaleTimeString() : '00:00:00' }</time>
-                <button onClick={ () => dispatch( {type: 'getCurrentTime'} )}>get current time</button>
-            </div>
-        </section>
-    );
+        <Provider store={store}>
+            <Task01 />
+            <Task02 />
+            <Task03 />
+            {/* <Task04 /> */}
+            {/* <Task05 /> */}
+        </Provider>
+    )
 }
-
-export default Task03;
-
